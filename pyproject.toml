@@ -6,7 +6,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "cryptenv"
-version = "0.1"
+version = "0.2"
 authors = [
     {name = "Vasilis Papadopoulos", email = "vpapadopoulos155@gmail.com"},
 ]

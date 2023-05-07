@@ -5,7 +5,7 @@ from typing import Final
 from cryptenv.utils.exit_codes import UNSUPPORTED_PYTHON_VERSION
 
 PYTHON_MIN_VERSION: Final[str] = "3.9"
-CRYPTENV_VERSION: Final[str] = "0.1"
+CRYPTENV_VERSION: Final[str] = "0.2"
 
 
 def print_version(raw: bool) -> None:
