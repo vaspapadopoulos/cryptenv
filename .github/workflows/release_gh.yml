@@ -37,7 +37,7 @@ jobs:
           --title "${GITHUB_REF_NAME}" \
           --notes "${GITHUB_REF_NAME}" \
           --target master \
-          "./dist/*.whl" \
-          "./dist/*.tar.gz" \
+          ./dist/*.whl \
+          ./dist/*.tar.gz \
           "cryptenv_${GITHUB_REF_NAME}.zip#Source code (zip)" \
           "cryptenv_${GITHUB_REF_NAME}.tar.gz#Source code (tar.gz)"
