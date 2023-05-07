@@ -24,6 +24,8 @@ jobs:
         run: pip install -r .github/workflows/requirements.txt
       - name: Build cryptenv
         run: python -m build
+      - name: Check distribution
+        run: python -m twine check --strict dist/*
       - name: Publish to PyPi
         env:
           TWINE_REPOSITORY_URL: https://upload.pypi.org/legacy/
