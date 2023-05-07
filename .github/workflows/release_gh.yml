@@ -36,7 +36,7 @@ jobs:
           release create "${GITHUB_REF_NAME}" \
           --title "${GITHUB_REF_NAME}" \
           --notes "${GITHUB_REF_NAME}" \
-          --target master \
+          --target "$(git rev-parse HEAD)" \
           ./dist/*.whl \
           ./dist/*.tar.gz \
           "cryptenv_${GITHUB_REF_NAME}.zip#Source code (zip)" \
