@@ -12,7 +12,7 @@ from cryptenv.actions.file import FileAction
 from cryptenv.utils import exit_codes
 from cryptenv.utils.env_file import run_validity_checks, validate_encrypted_variable
 from cryptenv.utils.password import get_password
-from cryptenv.utils.version import check_python_version, check_variable_version
+from cryptenv.utils.version import check_python_version, check_variable_version, print_version
 
 check_python_version()
 
@@ -63,6 +63,14 @@ decrypt_parser.add_argument('-f', '--file',
                             nargs=argparse.OPTIONAL,
                             action=FileAction,
                             help='the .env file to decrypt')
+
+decrypt_parser = subparsers.add_parser('version', help='Show cryptenv version details')
+decrypt_password_group = decrypt_parser.add_mutually_exclusive_group(required=False)
+decrypt_password_group.add_argument('-r', '--raw',
+                                    required=False,
+                                    default=False,
+                                    action='store_true',
+                                    help='print version only')
 
 
 def encrypt(password: str, file: pathlib.Path, env_list: list[str]) -> None:
@@ -167,6 +175,8 @@ def main():
     elif sys.argv[1] == "decrypt":
         password = get_password(args.interactive, False, args.passfile)
         decrypt(password=password, file=args.file, env_list=envs)
+    elif sys.argv[1] == "version":
+        print_version(args.raw)
 
 
 if __name__ == "__main__":

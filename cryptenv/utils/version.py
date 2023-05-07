@@ -8,6 +8,13 @@ PYTHON_MIN_VERSION: Final[str] = "3.9"
 CRYPTENV_VERSION: Final[str] = "0.1"
 
 
+def print_version(raw: bool) -> None:
+    if (raw):
+        print(CRYPTENV_VERSION)
+    else:
+        print(CRYPTENV_VERSION + " blah")
+
+
 def check_python_version() -> None:
     python_version = str(sys.version_info[0]) + '.' + str(sys.version_info[1])
     if version.parse(python_version) < version.parse(PYTHON_MIN_VERSION):
