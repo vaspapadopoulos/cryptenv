@@ -1,0 +1,43 @@
+---
+name: release github
+
+concurrency: release_github
+
+on:
+  push:
+    tags:
+      - 'v**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        id: setup-python
+        with:
+          python-version: '3.9'
+          cache: 'pip'
+          cache-dependency-path: .github/workflows/requirements.txt
+      - name: Install Python requirements
+        run: pip install -r .github/workflows/requirements.txt
+      - name: Package source code (zip)
+        run: zip -r "cryptenv${GITHUB_REF_NAME}.zip" .
+      - name: Package source code (tar.gz)
+        run: tar -czvf "cryptenv${GITHUB_REF_NAME}.tar.gz" .
+      - name: Build cryptenv
+        run: python -m build
+      - name: Create release
+        env:
+          GH_TOKEN: ${{ secrets.CREATE_RELEASE_TOKEN }}
+        run: |
+          gh \
+          release create "${GITHUB_REF_NAME}" \
+          --title "${GITHUB_REF_NAME}" \
+          --notes "${GITHUB_REF_NAME}" \
+          --target master \
+          "./dist/*.whl" \
+          "./dist/*.tar.gz" \
+          "cryptenv${GITHUB_REF_NAME}.zip#Source code (zip)" \
+          "cryptenv${GITHUB_REF_NAME}.tar.gz#Source code (tar.gz)"

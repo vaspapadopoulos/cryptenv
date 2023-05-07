@@ -1,7 +1,7 @@
 ---
-name: release
+name: release pypi
 
-concurrency: release
+concurrency: release_pypi
 
 on:
   push:
