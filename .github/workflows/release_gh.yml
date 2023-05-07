@@ -23,9 +23,9 @@ jobs:
       - name: Install Python requirements
         run: pip install -r .github/workflows/requirements.txt
       - name: Package source code (zip)
-        run: zip -r "cryptenv${GITHUB_REF_NAME}.zip" . -x .git
+        run: zip -r "cryptenv${GITHUB_REF_NAME}.zip" $(git ls-tree --name-only HEAD)
       - name: Package source code (tar.gz)
-        run: tar --exclude=.git -czvf "cryptenv${GITHUB_REF_NAME}.tar.gz" .
+        run: tar -czvf "cryptenv${GITHUB_REF_NAME}.tar.gz" $(git ls-tree --name-only HEAD)
       - name: Build cryptenv
         run: python -m build
       - name: Create release
